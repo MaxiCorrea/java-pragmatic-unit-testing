@@ -21,10 +21,11 @@ public class CreditHistoryTest {
     }
 
     @Test
-    void withOneRatingHasEquivalentMean() {
+    void withRatingDividesTotalByCount(){
         creditHistory.add(new CreditRating(780));
+        creditHistory.add(new CreditRating(800));
+        creditHistory.add(new CreditRating(820));
         int result = creditHistory.arithmeticMean();
-        assertEquals(780, result);
+        assertEquals(800, result);
     }
-
 }
