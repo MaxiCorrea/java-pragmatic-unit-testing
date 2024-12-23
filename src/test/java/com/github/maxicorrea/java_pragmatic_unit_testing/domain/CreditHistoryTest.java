@@ -7,21 +7,21 @@ import org.junit.jupiter.api.Test;
 
 public class CreditHistoryTest {
     
-    private CreditHistory creditHistory;
+    CreditHistory creditHistory;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         creditHistory = new CreditHistory();
     }
 
     @Test
-    public void withNoCreditRatingsHas0Mean() {
+    void withNoCreditRatingsHas0Mean() {
         int result = creditHistory.arithmeticMean();
         assertEquals(0, result);
     }
 
     @Test
-    public void withOneRatingHasEquivalentMean() {
+    void withOneRatingHasEquivalentMean() {
         creditHistory.add(new CreditRating(780));
         int result = creditHistory.arithmeticMean();
         assertEquals(780, result);
