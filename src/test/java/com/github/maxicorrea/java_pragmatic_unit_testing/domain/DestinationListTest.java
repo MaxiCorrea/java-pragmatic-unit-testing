@@ -48,4 +48,26 @@ public class DestinationListTest {
                 destinationList.getLocations());
     }
 
+    @Test
+    void updateMatchingLocationsWithNewCoordinates() {
+        destinationList.add(new FixedLocation(0, 0, Heading.EAST));
+        destinationList.add(new FixedLocation(3, 3, Heading.NORTH));
+        destinationList.moveLocationWithHeading(Heading.EAST, 3, 3);
+        assertEquals(
+                List.of(new FixedLocation(3, 3, Heading.EAST),
+                        new FixedLocation(3, 3, Heading.NORTH)),
+                destinationList.getLocations());
+    }
+
+    @Test
+    void retainsLocationsLessThanDistance() {
+        destinationList.add(new FixedLocation(0, 5, Heading.NORTH));
+        destinationList.add(new FixedLocation(0, 10, Heading.NORTH));
+        destinationList.add(new FixedLocation(0, 15, Heading.NORTH));
+        destinationList.removeLocationsFurtherThan(0, 0, 9);
+        assertEquals(List.of(
+                new FixedLocation(0, 5, Heading.NORTH)),
+                destinationList.getLocations());
+    }
+
 }
