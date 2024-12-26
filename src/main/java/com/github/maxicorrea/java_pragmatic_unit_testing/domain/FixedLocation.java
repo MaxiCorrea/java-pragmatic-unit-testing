@@ -11,4 +11,10 @@ public record FixedLocation(int x, int y, Heading heading) {
             case WEST -> new FixedLocation(x - distance, y, Heading.WEST);
         };
     }
+
+    public double distanceFrom(int x, int y) {
+        return Math.sqrt(
+                Math.pow(x - this.x(), 2) + Math.pow(y - this.y(), 2));
+    }
+
 }
