@@ -2,19 +2,21 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.doubles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.contains;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 
 public class AddressRetriverTest {
 
+    Http http = mock(Http.class);
+
     @Test
     void answersAppropriateAddressForValidCoordinates() {
-        Http http = url -> {
-            if (!url.contains("lat=38") || !url.contains("lon=-104")) {
-                fail("url " + url + " does not contain correct params");
-            }
-            return """
+
+        when(http.get(contains("lat=38.000000&lon=-104.000000"))).thenReturn("""
                 {"address":{
                 "house_number":"324",
                 "road":"Main St",
@@ -22,8 +24,7 @@ public class AddressRetriverTest {
                 "state":"Colorado",
                 "postcode":"81234",
                 "country_code":"us"}}
-                """;
-        };
+                """);
 
         var retriever = new AddressRetriver(http);
         var address = retriever.retrieve(38, -104);
@@ -37,8 +38,8 @@ public class AddressRetriverTest {
 
     @Test
     void throwsWhenNotUSCountryCode() {
-        Http http = url -> """
-                {"address":{ "country_code":"not us"}}""";
+        when(http.get(anyString())).thenReturn("""
+                {"address":{ "country_code":"not us"}}""");
         var retriever = new AddressRetriver(http);
         assertThrows(UnsupportedOperationException.class,
                 () -> retriever.retrieve(1.0, -1.0));
