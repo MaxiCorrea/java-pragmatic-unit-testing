@@ -1,6 +1,7 @@
 package com.github.maxicorrea.java_pragmatic_unit_testing.domain.doubles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -60,6 +61,14 @@ public class AddressRetriverTest {
         var retriever = new AddressRetriver(http, auditor);
         retriever.retrieve(1.0, -1.0);
         verify(auditor, never()).audit(any());
+    }
+
+    @Test
+    void returnNullWhenHttpGetThrows() {
+        when(http.get(anyString())).thenThrow(RuntimeException.class);
+        var retriever = new AddressRetriver(http, auditor);
+        var address = retriever.retrieve(38, -104);
+        assertNull(address);
     }
 
 }
