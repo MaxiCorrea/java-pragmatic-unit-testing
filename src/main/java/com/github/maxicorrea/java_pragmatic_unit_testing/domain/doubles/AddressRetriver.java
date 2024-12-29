@@ -19,7 +19,8 @@ public class AddressRetriver {
     public Address retrieve(double latitude, double longitude) {
         var locationParams = "lat=%.6f&lon=%.6f".formatted(latitude, longitude);
         var url = "%s/reverse?%s&format=json".formatted(SERVER, locationParams);
-        var jsonResponse = http.get(url);
+        var jsonResponse = get(url);
+        if(jsonResponse == null) return null;
         var response = parseResponse(jsonResponse);
         var address = response.address();
         var country = address.country_code();
@@ -29,6 +30,14 @@ public class AddressRetriver {
                     "intl addresses unsupported");
         }
         return address;
+    }
+
+    private String get(String url) {
+        try{
+            return http.get(url);
+        } catch(Exception ex) {
+            return null;
+        }
     }
 
     private Response parseResponse(String jsonResponse) {
