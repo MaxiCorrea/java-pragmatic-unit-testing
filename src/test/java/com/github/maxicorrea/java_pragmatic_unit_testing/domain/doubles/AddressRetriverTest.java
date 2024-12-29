@@ -2,9 +2,11 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.doubles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
@@ -49,6 +51,15 @@ public class AddressRetriverTest {
         assertThrows(UnsupportedOperationException.class,
                 () -> retriever.retrieve(1.0, -1.0));
         verify(auditor, times(1)).audit("Request for country code us");
+    }
+
+    @Test
+    void doesNotOccurWhenUSAddressRetrieved() {
+        when(http.get(anyString())).thenReturn("""
+                {"address":{ "country_code":"us"}}""");
+        var retriever = new AddressRetriver(http, auditor);
+        retriever.retrieve(1.0, -1.0);
+        verify(auditor, never()).audit(any());
     }
 
 }
