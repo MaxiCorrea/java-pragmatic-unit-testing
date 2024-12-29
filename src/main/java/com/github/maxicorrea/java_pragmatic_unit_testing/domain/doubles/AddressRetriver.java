@@ -9,9 +9,11 @@ public class AddressRetriver {
     private static final String SERVER = "https://nominatim.openstreetmap.org";
 
     private final Http http;
+    private final Auditor auditor;
 
-    public AddressRetriver(Http http) {
+    public AddressRetriver(Http http, Auditor auditor) {
         this.http = http;
+        this.auditor = auditor;
     }
 
     public Address retrieve(double latitude, double longitude) {
@@ -21,9 +23,11 @@ public class AddressRetriver {
         var response = parseResponse(jsonResponse);
         var address = response.address();
         var country = address.country_code();
-        if (!country.equals("us"))
+        if (!country.equals("us")) {
+            auditor.audit("Request for country code: %s".formatted(country));
             throw new UnsupportedOperationException(
                     "intl addresses unsupported");
+        }
         return address;
     }
 
