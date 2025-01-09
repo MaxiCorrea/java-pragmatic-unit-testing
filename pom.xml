@@ -60,6 +60,11 @@
 			<version>5.14.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.code-intelligence</groupId>
+			<artifactId>jazzer-junit</artifactId>
+			<version>0.23.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
