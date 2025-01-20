@@ -18,4 +18,8 @@ public class Account {
         return BigDecimal.ZERO.compareTo(balance) < 0;
     }
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
 }
