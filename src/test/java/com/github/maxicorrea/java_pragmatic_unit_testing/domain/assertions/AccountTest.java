@@ -3,6 +3,7 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.assertions;
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,11 @@ public class AccountTest {
         account.deposit(20);
         Assertions.assertEquals(BigDecimal.valueOf(70), account.getBalance(),
                 "account balance must be total of deposits");
+    }
+
+    @Test
+    void doesNotHavePositiveBalanceWhenAccountCreated() {
+        assertFalse(account.hasPositiveBalance());
     }
 
 }
