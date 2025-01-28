@@ -13,4 +13,8 @@ public class InMemoryDatabase {
         data.put(customer.getId(), new Customer(customer));
     }
 
+    public Customer get(String key) {
+        return data.getOrDefault(key, null);
+    }
+
 }
