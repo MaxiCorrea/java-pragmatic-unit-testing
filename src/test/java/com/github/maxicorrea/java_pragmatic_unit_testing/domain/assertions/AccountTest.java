@@ -3,7 +3,9 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.assertions;
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +35,13 @@ public class AccountTest {
     @Test
     void doesNotHavePositiveBalanceWhenAccountCreated() {
         assertFalse(account.hasPositiveBalance());
+    }
+
+    @Test
+    void throwsWhenWithdrawingTooMuch() {
+        var thrown = assertThrows(InsufficientFundsException.class,
+                () -> account.withdraw(BigDecimal.valueOf(100)));
+       assertEquals("balance only 0", thrown.getMessage());
     }
 
 }
