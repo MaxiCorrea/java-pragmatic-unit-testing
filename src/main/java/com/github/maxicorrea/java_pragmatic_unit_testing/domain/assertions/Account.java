@@ -22,4 +22,10 @@ public class Account {
         return balance;
     }
 
+    public BigDecimal withdraw(BigDecimal balance) {
+        if(this.balance.subtract(balance).compareTo(BigDecimal.ZERO) < 0)
+            throw new InsufficientFundsException(String.format("balance only %s", this.balance));
+        return (this.balance = this.balance.subtract(balance));
+    }
+
 }
