@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class AccountTest {
@@ -43,5 +44,14 @@ public class AccountTest {
                 () -> account.withdraw(BigDecimal.valueOf(100)));
        assertEquals("balance only 0", thrown.getMessage());
     }
+
+
+    @Nested
+    class Withdrawal {
+        @Test void reducesAccountBalance() { /* ... */ }
+        @Test void throwsWhenAmountExceedsBalance() { /* ... */ }
+        @Test void notifiesIRSWhenAmountExceedsThreshold() { /* ... */ }
+    }
+    
 
 }
