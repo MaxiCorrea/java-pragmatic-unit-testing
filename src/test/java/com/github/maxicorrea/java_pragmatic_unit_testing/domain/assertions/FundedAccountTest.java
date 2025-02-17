@@ -2,6 +2,7 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.assertions;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -64,6 +65,7 @@ public class FundedAccountTest {
         }
 
         @Test
+        @Disabled
         public void notifiesIRSWhenAmountExceedsThreshold() {
             System.out.println("Withdrawal : notifiesIRSWhenAmountExceedsThreshold");
         }
