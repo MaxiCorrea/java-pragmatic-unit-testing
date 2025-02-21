@@ -19,7 +19,7 @@ public class PortfolioTest {
     Portfolio portfolio;
 
     @BeforeEach
-    void create() {
+    public void create() {
         portfolio = new Portfolio();
     }
 
