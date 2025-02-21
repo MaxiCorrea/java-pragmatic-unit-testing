@@ -28,9 +28,13 @@ public class Portfolio {
     }
 
     public void sell(String symbol, int shares) {
+        abortOnOversell(symbol, shares);
+        updateShares(symbol, -shares);
+    }
+
+    private void abortOnOversell(String symbol, int shares) {
         if (sharesOf(symbol) < shares)
             throw new InvalidTransactionException();
-        updateShares(symbol, -shares);
     }
 
     private void updateShares(String symbol, int shares) {
