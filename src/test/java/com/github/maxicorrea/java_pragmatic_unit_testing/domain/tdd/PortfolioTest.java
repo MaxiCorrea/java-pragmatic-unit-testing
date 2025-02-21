@@ -2,6 +2,7 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.tdd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,6 +84,12 @@ public class PortfolioTest {
         portfolio.purcharse("AAPL", 100);
         portfolio.sell("AAPL", 25);
         assertEquals(75, portfolio.sharesOf("AAPL"));
+    }
+
+    @Test
+    void throwsWhenSellingMoreSharesThanHeld() {
+        portfolio.purcharse("AAPL", 10);
+        assertThrows(InvalidTransactionException.class, () -> portfolio.sell("AAPL", 10 + 1));
     }
 
 }

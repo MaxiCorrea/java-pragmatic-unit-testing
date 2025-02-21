@@ -6,7 +6,7 @@ import java.util.Map;
 public class Portfolio {
 
     private Map<String, Integer> purcharses;
-    
+
     public Portfolio() {
         purcharses = new HashMap<>();
     }
@@ -16,7 +16,7 @@ public class Portfolio {
     }
 
     public void purcharse(String symbol, int shares) {
-        purcharses.put(symbol, sharesOf(symbol) + shares);
+        updateShares(symbol, +shares);
     }
 
     public int size() {
@@ -28,7 +28,13 @@ public class Portfolio {
     }
 
     public void sell(String symbol, int shares) {
-        purcharses.put(symbol, sharesOf(symbol) - shares);
+        if (sharesOf(symbol) < shares)
+            throw new InvalidTransactionException();
+        updateShares(symbol, -shares);
+    }
+
+    private void updateShares(String symbol, int shares) {
+        purcharses.put(symbol, sharesOf(symbol) + shares);
     }
 
 }
