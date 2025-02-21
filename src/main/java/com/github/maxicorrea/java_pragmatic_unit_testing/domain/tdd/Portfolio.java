@@ -1,28 +1,30 @@
 package com.github.maxicorrea.java_pragmatic_unit_testing.domain.tdd;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Portfolio {
 
-    private Set<String> symbols = new HashSet<>();
-    private int shares;
+    private Map<String, Integer> symbols;
+    
+    public Portfolio() {
+        symbols = new HashMap<>();
+    }
 
     public boolean isEmpty() {
         return symbols.isEmpty();
     }
 
     public void purcharse(String symbol, int shares) {
-        symbols.add(symbol);
-        this.shares = shares;
+        symbols.put(symbol, shares);
     }
 
     public int size() {
-       return symbols.size();
+        return symbols.size();
     }
 
     public int sharesOf(String symbol) {
-       return shares;
+        return symbols.get(symbol);
     }
-    
+
 }
