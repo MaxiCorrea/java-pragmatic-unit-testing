@@ -66,4 +66,9 @@ public class PortfolioTest {
         assertEquals(42, portfolio.sharesOf("SONO"));
     }
 
+    @Test
+    void returns0SharesForSymbolNotPurchased() {
+        assertEquals(0, portfolio.sharesOf("SONO"));
+    }
+    
 }

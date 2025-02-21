@@ -24,7 +24,7 @@ public class Portfolio {
     }
 
     public int sharesOf(String symbol) {
-        return purcharses.get(symbol);
+        return purcharses.getOrDefault(symbol, 0);
     }
 
 }
