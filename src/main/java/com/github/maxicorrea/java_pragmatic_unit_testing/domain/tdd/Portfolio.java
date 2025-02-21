@@ -1,13 +1,17 @@
 package com.github.maxicorrea.java_pragmatic_unit_testing.domain.tdd;
 
+import java.time.Clock;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Portfolio {
 
+    private Clock clock;
+    private Transaction lastTransaction;
     private Map<String, Integer> purcharses;
 
     public Portfolio() {
+        clock = Clock.systemUTC();
         purcharses = new HashMap<>();
     }
 
@@ -39,12 +43,21 @@ public class Portfolio {
     }
 
     private void updateShares(String symbol, int shares) {
+        lastTransaction = new Transaction(symbol, shares, TransactionType.BUY, clock.instant());
         purcharses.put(symbol, sharesOf(symbol) + shares);
     }
 
     private void removeSymbolIfSoldOut(String symbol) {
         if (sharesOf(symbol) == 0)
             purcharses.remove(symbol);
+    }
+
+    public Transaction lastTransaction() {
+        return lastTransaction;
+    }
+
+    public void setClock(Clock clock) {
+        this.clock = clock;
     }
 
 }

@@ -1,10 +1,16 @@
 package com.github.maxicorrea.java_pragmatic_unit_testing.domain.tdd;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class PortfolioTest {
@@ -97,6 +103,28 @@ public class PortfolioTest {
         portfolio.purcharse("AAPL", 50);
         portfolio.sell("AAPL", 50);
         assertEquals(0, portfolio.size());
+    }
+
+    @Test
+    void returnsNullWhenNoPreviousTransactionMade() {
+        assertNull(portfolio.lastTransaction());
+    }
+
+    @Nested
+    public class LastTransaction {
+        Instant now = Instant.now();
+
+        @BeforeEach
+        public void injectFixedClock() {
+            Clock clock = Clock.fixed(now, ZoneId.systemDefault());
+            portfolio.setClock(clock);
+        }
+
+        @Test
+        void returnsLastTransactionAfterPurchase() {
+            portfolio.purcharse("SONO", 20);
+            assertEquals(portfolio.lastTransaction(), new Transaction("SONO", 20, TransactionType.BUY, now));
+        }
     }
 
 }
