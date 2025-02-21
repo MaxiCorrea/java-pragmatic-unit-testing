@@ -27,4 +27,8 @@ public class Portfolio {
         return purcharses.getOrDefault(symbol, 0);
     }
 
+    public void sell(String symbol, int shares) {
+        purcharses.put(symbol, sharesOf(symbol) - shares);
+    }
+
 }
