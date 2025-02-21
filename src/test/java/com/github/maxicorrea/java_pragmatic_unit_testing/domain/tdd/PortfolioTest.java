@@ -53,4 +53,10 @@ public class PortfolioTest {
         assertEquals(1, portfolio.size());
     }
 
+    @Test
+    void returnsSharesGivenSymbol() {
+        portfolio.purcharse("AAPL", 42);
+        assertEquals(42, portfolio.sharesOf("AAPL"));
+    }
+
 }
