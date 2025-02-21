@@ -2,18 +2,18 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.tdd;
 
 public class Portfolio {
 
-    private boolean isEmpty = true;
+    private int size = 0;
 
     public boolean isEmpty() {
-        return isEmpty;
+        return size == 0;
     }
 
     public void purcharse(String synbol, int shares) {
-        isEmpty = false;
+        size++;
     }
 
     public int size() {
-       return isEmpty ? 0 : 1;
+       return size;
     }
     
 }
