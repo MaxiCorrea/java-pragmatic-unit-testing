@@ -11,5 +11,9 @@ public class Portfolio {
     public void purcharse(String synbol, int shares) {
         isEmpty = false;
     }
+
+    public int size() {
+       return 0;
+    }
     
 }
