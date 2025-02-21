@@ -30,6 +30,7 @@ public class Portfolio {
     public void sell(String symbol, int shares) {
         abortOnOversell(symbol, shares);
         updateShares(symbol, -shares);
+        removeSymbolIfSoldOut(symbol);
     }
 
     private void abortOnOversell(String symbol, int shares) {
@@ -39,6 +40,11 @@ public class Portfolio {
 
     private void updateShares(String symbol, int shares) {
         purcharses.put(symbol, sharesOf(symbol) + shares);
+    }
+
+    private void removeSymbolIfSoldOut(String symbol) {
+        if (sharesOf(symbol) == 0)
+            purcharses.remove(symbol);
     }
 
 }

@@ -92,4 +92,11 @@ public class PortfolioTest {
         assertThrows(InvalidTransactionException.class, () -> portfolio.sell("AAPL", 10 + 1));
     }
 
+    @Test
+    void reducesSizeWhenLiquidatingSymbol() {
+        portfolio.purcharse("AAPL", 50);
+        portfolio.sell("AAPL", 50);
+        assertEquals(0, portfolio.size());
+    }
+
 }
