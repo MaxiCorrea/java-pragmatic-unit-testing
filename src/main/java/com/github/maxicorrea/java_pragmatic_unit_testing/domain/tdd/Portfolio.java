@@ -5,26 +5,26 @@ import java.util.Map;
 
 public class Portfolio {
 
-    private Map<String, Integer> symbols;
+    private Map<String, Integer> purcharses;
     
     public Portfolio() {
-        symbols = new HashMap<>();
+        purcharses = new HashMap<>();
     }
 
     public boolean isEmpty() {
-        return symbols.isEmpty();
+        return purcharses.isEmpty();
     }
 
     public void purcharse(String symbol, int shares) {
-        symbols.put(symbol, shares);
+        purcharses.put(symbol, shares);
     }
 
     public int size() {
-        return symbols.size();
+        return purcharses.size();
     }
 
     public int sharesOf(String symbol) {
-        return symbols.get(symbol);
+        return purcharses.get(symbol);
     }
 
 }
