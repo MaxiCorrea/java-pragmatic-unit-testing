@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PortfolioTest {
-    
+
     Portfolio portfolio;
 
     @BeforeEach
@@ -23,7 +23,7 @@ public class PortfolioTest {
     @Test
     void isNotEmptyAfterPurcharse() {
         portfolio.purcharse("AAPL", 1);
-        assertFalse(portfolio.isEmpty());    
+        assertFalse(portfolio.isEmpty());
     }
 
     @Test
@@ -32,4 +32,13 @@ public class PortfolioTest {
         int currentSize = portfolio.size();
         assertEquals(expectedSize, currentSize);
     }
+
+    @Test
+    void hasSize1OnPurchase() {
+        portfolio.purcharse("AAPL", 1);
+        assertEquals(1, portfolio.size());
+    }
+
+
+    
 }

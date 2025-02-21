@@ -13,7 +13,7 @@ public class Portfolio {
     }
 
     public int size() {
-       return 0;
+       return isEmpty ? 0 : 1;
     }
     
 }
