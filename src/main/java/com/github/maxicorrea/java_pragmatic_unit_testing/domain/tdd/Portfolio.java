@@ -56,8 +56,7 @@ public class Portfolio {
     }
 
     public Transaction lastTransaction() {
-        if(transactions.isEmpty()) return null;
-        return transactions.getFirst();
+        return transactions.peekFirst();
     }
 
     public void setClock(Clock clock) {
