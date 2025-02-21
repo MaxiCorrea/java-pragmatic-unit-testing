@@ -1,19 +1,22 @@
 package com.github.maxicorrea.java_pragmatic_unit_testing.domain.tdd;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Portfolio {
 
-    private int size = 0;
+    private Set<String> symbols = new HashSet<>();
 
     public boolean isEmpty() {
-        return size == 0;
+        return symbols.isEmpty();
     }
 
-    public void purcharse(String synbol, int shares) {
-        size++;
+    public void purcharse(String symbol, int shares) {
+        symbols.add(symbol);
     }
 
     public int size() {
-       return size;
+       return symbols.size();
     }
     
 }

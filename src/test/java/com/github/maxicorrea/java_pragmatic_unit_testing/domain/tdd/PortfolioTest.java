@@ -46,4 +46,11 @@ public class PortfolioTest {
         assertEquals(2, portfolio.size());
     }
 
+    @Test
+    void doesNotIncrementSizeWithPurchaseSameSymbol() {
+        portfolio.purcharse("AAPL", 1);
+        portfolio.purcharse("AAPL", 1);
+        assertEquals(1, portfolio.size());
+    }
+
 }
