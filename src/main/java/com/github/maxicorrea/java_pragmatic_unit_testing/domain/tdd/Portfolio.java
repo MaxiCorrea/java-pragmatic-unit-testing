@@ -20,7 +20,7 @@ public class Portfolio {
     }
 
     public void purcharse(String symbol, int shares) {
-        updateShares(symbol, +shares);
+        updateShares(symbol, +shares, TransactionType.BUY);
     }
 
     public int size() {
@@ -33,7 +33,7 @@ public class Portfolio {
 
     public void sell(String symbol, int shares) {
         abortOnOversell(symbol, shares);
-        updateShares(symbol, -shares);
+        updateShares(symbol, -shares, TransactionType.SELL);
         removeSymbolIfSoldOut(symbol);
     }
 
@@ -42,8 +42,8 @@ public class Portfolio {
             throw new InvalidTransactionException();
     }
 
-    private void updateShares(String symbol, int shares) {
-        lastTransaction = new Transaction(symbol, shares, TransactionType.BUY, clock.instant());
+    private void updateShares(String symbol, int shares, TransactionType type) {
+        lastTransaction = new Transaction(symbol, Math.abs(shares), type, clock.instant());
         purcharses.put(symbol, sharesOf(symbol) + shares);
     }
 

@@ -125,6 +125,14 @@ public class PortfolioTest {
             portfolio.purcharse("SONO", 20);
             assertEquals(portfolio.lastTransaction(), new Transaction("SONO", 20, TransactionType.BUY, now));
         }
+
+        @Test
+        void returnsLastTransactionAfterSale() {
+            portfolio.purcharse("SONO", 200);
+            portfolio.sell("SONO", 40);
+            assertEquals(new Transaction("SONO", 40, TransactionType.SELL, now), portfolio.lastTransaction());
+        }
+
     }
 
 }
