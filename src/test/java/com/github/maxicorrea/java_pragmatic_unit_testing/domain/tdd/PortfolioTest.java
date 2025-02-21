@@ -3,6 +3,7 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.tdd;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -131,6 +132,34 @@ public class PortfolioTest {
             portfolio.purcharse("SONO", 200);
             portfolio.sell("SONO", 40);
             assertEquals(new Transaction("SONO", 40, TransactionType.SELL, now), portfolio.lastTransaction());
+        }
+
+    }
+
+    @Nested
+    public class TransactionHistory {
+        Instant now = Instant.now();
+
+        @BeforeEach
+        public void injectFixedClock() {
+            Clock clock = Clock.fixed(now, ZoneId.systemDefault());
+            portfolio.setClock(clock);
+        }
+
+        @Test
+        void returnsEmptyListWhenNoTransactionsMade() {
+            assertTrue(portfolio.transactions().isEmpty());
+        }
+
+        @Test
+        void returnsListOfTransactionsReverseChronologically() {
+            portfolio.purcharse("A", 1);
+            portfolio.purcharse("B", 2);
+            portfolio.purcharse("C", 3);
+            assertEquals(portfolio.transactions(), List.of(
+                    new Transaction("C", 3, TransactionType.BUY, now),
+                    new Transaction("B", 2, TransactionType.BUY, now),
+                    new Transaction("A", 1, TransactionType.BUY, now)));
         }
 
     }

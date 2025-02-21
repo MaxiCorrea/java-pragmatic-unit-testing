@@ -2,16 +2,19 @@ package com.github.maxicorrea.java_pragmatic_unit_testing.domain.tdd;
 
 import java.time.Clock;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Portfolio {
 
     private Clock clock;
-    private Transaction lastTransaction;
+    private LinkedList<Transaction> transactions;
     private Map<String, Integer> purcharses;
 
     public Portfolio() {
         clock = Clock.systemUTC();
+        transactions = new LinkedList<>();
         purcharses = new HashMap<>();
     }
 
@@ -43,7 +46,7 @@ public class Portfolio {
     }
 
     private void updateShares(String symbol, int shares, TransactionType type) {
-        lastTransaction = new Transaction(symbol, Math.abs(shares), type, clock.instant());
+        transactions.addFirst(new Transaction(symbol, Math.abs(shares), type, clock.instant()));
         purcharses.put(symbol, sharesOf(symbol) + shares);
     }
 
@@ -53,11 +56,16 @@ public class Portfolio {
     }
 
     public Transaction lastTransaction() {
-        return lastTransaction;
+        if(transactions.isEmpty()) return null;
+        return transactions.getFirst();
     }
 
     public void setClock(Clock clock) {
         this.clock = clock;
+    }
+
+    public List<Transaction> transactions() {
+        return transactions;
     }
 
 }
